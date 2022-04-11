@@ -3,7 +3,7 @@ import utils
 
 class App():
     _webcam = False
-    _path = '1.jpg'
+    _path = "sample_image.jpg"
     _cam = cv2.VideoCapture(0)
     _cam.set(10,160) # Brightness
     _cam.set(3,1920) # Width
@@ -15,14 +15,14 @@ class App():
     def __init__(self):
         pass
 
-    def get_image(self):
+    def get_image(self, path=""):
         if self._webcam:
             success,img = self._cam.read()
         else:
-            img = cv2.imread(self._path)
+            img = cv2.imread(path)
         
+        yield img
         imgContours, conts = utils.getContours(img, minArea=50000, filter=4)
-        print("Conts length= ", len(conts))
         if len(conts) != 0:
             biggest = conts[0][2]
             imgWarp = utils.warpImg(img, biggest, self._wP, self._hP)
@@ -46,6 +46,5 @@ class App():
         # img = cv2.resize(img, (0, 0), None, 0.5, 0.5)
         # cv2.imshow('Original', img)
         # cv2.waitKey(1)
-        yield img
         
-        return img
+        return
