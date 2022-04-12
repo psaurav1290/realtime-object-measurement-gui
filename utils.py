@@ -7,14 +7,14 @@ def cv2_to_image(image):
     blue, green, red = cv2.split(image)
     image = cv2.merge((red, green, blue))
     image = Image.fromarray(image)
-    w,h = image.size
-    if w>h:
+    w, h = image.size
+    if w > h:
         W = 600
         H = (W*h)/w
     else:
         H = 600
         W = (H*w)/h
-    image.thumbnail((W,H))
+    image.thumbnail((W, H))
     return image
 
 
@@ -48,7 +48,6 @@ def getContours(img, cThr=[100, 100], showCanny=False, minArea=1000, filter=0, d
 
 
 def reorder(myPoints):
-    # print(myPoints.shape)
     myPointsNew = np.zeros_like(myPoints)
     myPoints = myPoints.reshape((4, 2))
     add = myPoints.sum(1)
@@ -61,15 +60,33 @@ def reorder(myPoints):
 
 
 def warpImg(img, points, w, h, pad=20):
-    # print(points)
     points = reorder(points)
+    print(points, "\n--------------------------\n")
     pts1 = np.float32(points)
-    pts2 = np.float32([[0, 0], [w, 0], [0, h], [w, h]])
-    matrix = cv2.getPerspectiveTransform(pts1, pts2)
-    imgWarp = cv2.warpPerspective(img, matrix, (w, h))
+
+    isPortrait = portrait(pts1)
+    if isPortrait:
+        pts2 = np.float32([[0, 0], [w, 0], [0, h], [w, h]])
+        matrix = cv2.getPerspectiveTransform(pts1, pts2)
+        imgWarp = cv2.warpPerspective(img, matrix, (w, h))
+    else:
+        pts2 = np.float32([[0, 0], [h, 0], [0, w], [h, w]])
+        matrix = cv2.getPerspectiveTransform(pts1, pts2)
+        imgWarp = cv2.warpPerspective(img, matrix, (h, w))
+
     imgWarp = imgWarp[pad:imgWarp.shape[0]-pad, pad:imgWarp.shape[1]-pad]
     return imgWarp
 
 
 def findDis(pts1, pts2):
     return ((pts2[0]-pts1[0])**2 + (pts2[1]-pts1[1])**2)**0.5
+
+
+def portrait(pts):
+    w = (findDis(pts[0][0], pts[1][0]) + findDis(pts[2][0], pts[3][0]))/2
+    h = (findDis(pts[0][0], pts[2][0]) + findDis(pts[1][0], pts[3][0]))/2
+    print(w,h)
+    if(w < h):
+        return True
+    else:
+        return False

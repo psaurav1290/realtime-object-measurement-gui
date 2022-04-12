@@ -81,8 +81,7 @@ class initTabInputPane(ttk.Frame):
         input_text = self.tabInputField.get()
         if not input_text or input_text == self._current:
             filetypes = filetypes = (
-                ('Jpg Files', '*.jpg'),
-                ('Png Files', '*.png'),
+                ('Image Files', ('*.jpg', '*.png', '*.jpeg')),
                 ('All files', '*.*')
             )
             input_text = filedialog.askopenfilename(title='Open files', initialdir=self._default, filetypes=filetypes)

@@ -9,8 +9,8 @@ class App():
     _cam.set(3,1920) # Width
     _cam.set(4,1080) # Height
     _scale = 3
-    _wP = 210 * _scale
-    _hP= 297 * _scale
+    _hP = 297 * _scale
+    _wP= 210 * _scale
 
     def __init__(self):
         pass
@@ -20,11 +20,12 @@ class App():
             success,img = self._cam.read()
         else:
             img = cv2.imread(path)
-        
+
         yield img
         imgContours, conts = utils.getContours(img, minArea=50000, filter=4)
         if len(conts) != 0:
             biggest = conts[0][2]
+            # print(biggest)
             imgWarp = utils.warpImg(img, biggest, self._wP, self._hP)
             imgContours2, conts2 = utils.getContours(imgWarp, minArea=2000, filter=4, cThr=[50, 50], draw=False)
             if len(conts) != 0:

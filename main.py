@@ -9,7 +9,7 @@ import os
 
 
 class initRoot(themed_tk.ThemedTk):
-    _file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),"sample_image.jpg")
+    _file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sample_image.jpg")
 
     def rootLoadWidgets(self):
         self.rootMenu = initRootMenu(self)
