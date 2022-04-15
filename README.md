@@ -36,3 +36,4 @@ With the help of the canny image the dimensions of objects placed on the A4 shee
 Displayed an arrowed line representing the length and breadth of the objects and estimated their magnitude. 
 
 ## Results
+![Original Image and Output Image with Measurements](https://github.com/dubeyaditya6232/ObjectsDimensionMeasurement/blob/master/images/readme-image.png)
