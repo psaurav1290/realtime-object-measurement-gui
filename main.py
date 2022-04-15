@@ -19,7 +19,7 @@ class initRoot(themed_tk.ThemedTk):
         ctypes.windll.shcore.SetProcessDpiAwareness(1)
         super().__init__()
         self.set_theme("plastik")
-        self.geometry("1500x1030+100+0")
+        self.geometry("1800x1030+100+0")
         self.title("Realtime Object Measurement")
         self.iconbitmap("favicon.ico")
         self.winWidth = 1500
@@ -28,7 +28,8 @@ class initRoot(themed_tk.ThemedTk):
 
 def update_frames(root, app):
     i = 0
-    for img in app.get_image(root._file_path):
+    size = root.rootNotebook.rootOriginalImageTab.tabConfigPane.get_sheet_size()
+    for img in app.get_image(size, root._file_path):
         img = ImageTk.PhotoImage(cv2_to_image(img))
         if i == 0:
             root.rootNotebook.rootOriginalImageTab.tabImagePane.originalImageLabel.image = img
