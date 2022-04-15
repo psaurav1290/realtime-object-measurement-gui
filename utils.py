@@ -9,10 +9,10 @@ def cv2_to_image(image):
     image = Image.fromarray(image)
     w, h = image.size
     if w > h:
-        W = 800
+        W = 600
         H = (W*h)/w
     else:
-        H = 800
+        H = 600
         W = (H*w)/h
     image.thumbnail((W, H))
     return image
