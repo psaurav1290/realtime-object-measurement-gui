@@ -19,12 +19,12 @@ class initRootMenu(tk.Menu):
         self.rootMenuFile = tk.Menu(self.master, tearoff=0)
         self.add_cascade(label="File", menu=self.rootMenuFile)
         self.rootMenuFile.add_command(label="Exit\t\t\t\t\t(Alt+F4)", command=self.master.destroy)
-        self.rootMenuFile.add_command(label="Contact", command=lambda event: super(initRootMenu, self).openWebsite("http://psaurav1290.github.io"))
+        self.rootMenuFile.add_command(label="Contact", command=lambda event=0: super(initRootMenu, self).openWebsite("http://psaurav1290.github.io"))
 
         self.rootMenuResize = tk.Menu(self.master, tearoff=0)
         self.add_cascade(label="Resize", menu=self.rootMenuResize)
-        self.rootMenuResize.add_command(label="Wide", command=lambda event: self.winResize("1500x1010"))
-        self.rootMenuResize.add_command(label="Narrow", command=lambda event: self.winResize("800x1010"))
+        self.rootMenuResize.add_command(label="Wide", command=lambda event=0: self.winResize("1500x1010"))
+        self.rootMenuResize.add_command(label="Narrow", command=lambda event=0: self.winResize("800x1010"))
 
     def __init__(self, master=None):
         super().__init__()
@@ -38,7 +38,7 @@ class initRootNotebook(ttk.Notebook):
     """
 
     def notebookLoadWidgets(self):
-        self.rootOriginalImageTab = initRootNbTab(self, "Realtime")
+        self.rootOriginalImageTab = initRootNbTab(self, "Object Dimension Measurement")
         # self.rootTabShopping = initRootNbTab(self, "Intermediate Processing")
 
     def __init__(self, master):
@@ -52,7 +52,7 @@ class initRootNotebook(ttk.Notebook):
 class initRootNbTab (ttk.Frame):
     def tabLoadWidgets(self):
 
-        self.tabImage = ImageTk.PhotoImage(Image.open(f"images/{self.tabName.replace(' ','-')}-tab-image-1200x220-01.png"))
+        self.tabImage = ImageTk.PhotoImage(Image.open(f"images/{self.tabName.replace(' ','-')}-tab-image-1200x220.png"))
         self.tabImageLabel = ttk.Label(self, image=self.tabImage)
         self.tabImageLabel.pack(side="top", ipadx=0, ipady=0, padx=0, pady=0)
 
@@ -106,20 +106,22 @@ class initTabInputPane(ttk.Frame):
 
         self.entryStyle = ttk.Style()
         self.entryStyle.map("Custom.TEntry", foreground=[('!focus', 'grey')])
-        self.tabInputField = ttk.Entry(self, width=80, font=("Calibri", 15), style="Custom.TEntry")
+        self.tabInputLabel = ttk.Label(self, text="Image Path:      ", font=("Calibri", 12))
+        self.tabInputField = ttk.Entry(self, width=80, font=("Calibri", 13), style="Custom.TEntry")
         self.tabInputField.insert(0, self._default)
-        self.tabSearchIconImage = ImageTk.PhotoImage(Image.open("images/search-icon-image-disabled-80x80.png"))
-        self.tabSearchIcon = ttk.Button(self, image=self.tabSearchIconImage, style="searchIcon.TLabel", command=lambda event: self.open_image())
+        self.tabBrowseIconImage = ImageTk.PhotoImage(Image.open("images/browse.png"))
+        self.tabBrowseIcon = ttk.Button(self, image=self.tabBrowseIconImage, style="searchIcon.TLabel", command=lambda event=0: self.open_image())
         self.clearInputFieldFlag = 1
-        self.tabInputField.bind("<Button-1>", lambda event: self.clearInputField())
+        self.tabInputField.bind("<Button-1>", lambda event=0: self.clearInputField())
         self.tabInputField.pack(side="left", padx=40, pady=0, ipadx=0, ipady=8)
-        self.tabSearchIcon.pack(side="left", padx=40, pady=0, ipadx=0, ipady=10)
+        self.tabBrowseIcon.pack(side="left", padx=40, pady=0, ipadx=0, ipady=10)
 
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
         self.pack(side="top", ipadx=0, ipady=0, padx=10, pady=0)
         self.inputPaneLoadWidgets()
+
 
 class initTabConfigPane(ttk.Frame):
     _width = 455
@@ -129,28 +131,30 @@ class initTabConfigPane(ttk.Frame):
         self._width = int(self.tabWidthField.get())
         self._height = int(self.tabHeightField.get())
         self.master.master.master._file_path = self.master.tabInputPane._current
-        
+
     def get_sheet_size(self):
         return (self._width, self._height)
 
     def inputPaneLoadWidgets(self):
         self.entryStyle = ttk.Style()
         self.entryStyle.map("Custom.TEntry", foreground=[('!focus', 'grey')])
-        self.tabSizeLabel = ttk.Label(self, text="Set Refrence Sheet Size (width x height)    ", font=("Calibri", 12))
+        self.tabSizeLabel = ttk.Label(self, text="Refrence Sheet Size (width x height):    ", font=("Calibri", 12))
         self.tabWidthField = ttk.Entry(self, width=10, font=("Calibri", 12), style="Custom.TEntry")
         self.tabWidthField.insert(0, "455")
         self.tabWidthLabel = ttk.Label(self, text="mm     X    ", font=("Calibri", 12))
         self.tabHeightField = ttk.Entry(self, width=10, font=("Calibri", 12), style="Custom.TEntry")
         self.tabHeightField.insert(0, "305")
         self.tabHeightLabel = ttk.Label(self, text="mm", font=("Calibri", 12))
-        self.tabSetSizeButton = ttk.Button(self, text="Get Image", command=lambda event: self.set_sheet_size())
+        self.tabImportIconImage = ImageTk.PhotoImage(Image.open("images/import.png"))
+        self.tabImportIcon = ttk.Button(self, image=self.tabImportIconImage, style="searchIcon.TLabel", command=lambda event=0: self.set_sheet_size())
 
+        self.tabSizeLabel.pack(side="left", padx=10, pady=0, ipadx=0, ipady=8)
         self.tabSizeLabel.pack(side="left", padx=10, pady=0, ipadx=0, ipady=8)
         self.tabWidthField.pack(side="left", padx=10, pady=0, ipadx=0, ipady=8)
         self.tabWidthLabel.pack(side="left", padx=10, pady=0, ipadx=0, ipady=8)
         self.tabHeightField.pack(side="left", padx=10, pady=0, ipadx=0, ipady=8)
         self.tabHeightLabel.pack(side="left", padx=10, pady=0, ipadx=0, ipady=8)
-        self.tabSetSizeButton.pack(side="left", padx=80, pady=0, ipadx=0, ipady=10)
+        self.tabImportIcon.pack(side="left", padx=80, pady=0, ipadx=0, ipady=10)
 
     def __init__(self, master=None):
         super().__init__(master)
