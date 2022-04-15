@@ -19,7 +19,7 @@ class initRoot(themed_tk.ThemedTk):
         ctypes.windll.shcore.SetProcessDpiAwareness(1)
         super().__init__()
         self.set_theme("plastik")
-        self.geometry("1500x1030+100+0")
+        self.geometry("1800x1030+100+0")
         self.title("Realtime Object Measurement")
         self.iconbitmap("favicon.ico")
         self.winWidth = 1500

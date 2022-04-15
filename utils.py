@@ -9,7 +9,7 @@ def cv2_to_image(image):
     image = Image.fromarray(image)
     w, h = image.size
     if w > h:
-        W = 600
+        W = 800
         H = (W*h)/w
     else:
         H = 600

@@ -9,8 +9,8 @@ class App():
     _cam.set(3,1920) # Width
     _cam.set(4,1080) # Height
     _scale = 3
-    _hP = 297 * _scale
-    _wP= 210 * _scale
+    _hP = 455 * _scale
+    _wP= 305 * _scale
 
     def __init__(self):
         pass
