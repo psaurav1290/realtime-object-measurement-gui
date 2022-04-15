@@ -10,6 +10,13 @@
 4.	Nitansh Ritul (BTECH/10438/19)
 5.	Saketh Kumar Pabba (BTECH/10602/19)
 
+#### How to set up:
+- Clone the repository
+- Then create virtual environment - `python -m venv venv`
+- Activate venv - `source venv/Scripts/activate`
+- Install requirements - `pip install -r requirements.txt`
+- Run GUI - python main.py
+- Browse for an image, enter the sheet size and press import.
 
 ## Introduction 
 "Object Dimension Measurement" is a software for detecting the dimensions of  objects. It takes an image with a white background of known dimension(A4 sheet) with  objects  placed on it and displays its dimensions in the specified measuring units. We have created a system that uses the OpenCV software library to implement the proposed technique.

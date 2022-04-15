@@ -19,12 +19,6 @@ class initRootMenu(tk.Menu):
         self.rootMenuFile = tk.Menu(self.master, tearoff=0)
         self.add_cascade(label="File", menu=self.rootMenuFile)
         self.rootMenuFile.add_command(label="Exit\t\t\t\t\t(Alt+F4)", command=self.master.destroy)
-        self.rootMenuFile.add_command(label="Contact", command=lambda event=0: super(initRootMenu, self).openWebsite("http://psaurav1290.github.io"))
-
-        self.rootMenuResize = tk.Menu(self.master, tearoff=0)
-        self.add_cascade(label="Resize", menu=self.rootMenuResize)
-        self.rootMenuResize.add_command(label="Wide", command=lambda event=0: self.winResize("1500x1010"))
-        self.rootMenuResize.add_command(label="Narrow", command=lambda event=0: self.winResize("800x1010"))
 
     def __init__(self, master=None):
         super().__init__()
@@ -113,6 +107,7 @@ class initTabInputPane(ttk.Frame):
         self.tabBrowseIcon = ttk.Button(self, image=self.tabBrowseIconImage, style="searchIcon.TLabel", command=lambda event=0: self.open_image())
         self.clearInputFieldFlag = 1
         self.tabInputField.bind("<Button-1>", lambda event=0: self.clearInputField())
+        self.tabInputLabel.pack(side="left", padx=40, pady=0, ipadx=0, ipady=8)
         self.tabInputField.pack(side="left", padx=40, pady=0, ipadx=0, ipady=8)
         self.tabBrowseIcon.pack(side="left", padx=40, pady=0, ipadx=0, ipady=10)
 
