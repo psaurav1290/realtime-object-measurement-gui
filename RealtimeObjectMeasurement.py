@@ -15,7 +15,14 @@ class App():
     def __init__(self):
         pass
 
-    def get_image(self, path=""):
+    def get_image(self, size, path=""):
+        if len(size) == 2:
+            self.hP = max(size[0], size[1]) * self._scale
+            self.wP = min(size[0], size[1]) * self._scale
+        else:
+            self.hP = self._hP
+            self.wp = self._wP
+        
         if self._webcam:
             success,img = self._cam.read()
         else:
@@ -25,8 +32,7 @@ class App():
         imgContours, conts = utils.getContours(img, minArea=50000, filter=4)
         if len(conts) != 0:
             biggest = conts[0][2]
-            # print(biggest)
-            imgWarp = utils.warpImg(img, biggest, self._wP, self._hP)
+            imgWarp = utils.warpImg(img, biggest, self.wP, self.hP)
             imgContours2, conts2 = utils.getContours(imgWarp, minArea=2000, filter=4, cThr=[50, 50], draw=False)
             if len(conts) != 0:
                 for obj in conts2:

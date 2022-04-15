@@ -9,10 +9,10 @@ def cv2_to_image(image):
     image = Image.fromarray(image)
     w, h = image.size
     if w > h:
-        W = 800
+        W = 650
         H = (W*h)/w
     else:
-        H = 600
+        H = 650
         W = (H*w)/h
     image.thumbnail((W, H))
     return image
@@ -61,7 +61,6 @@ def reorder(myPoints):
 
 def warpImg(img, points, w, h, pad=20):
     points = reorder(points)
-    print(points, "\n--------------------------\n")
     pts1 = np.float32(points)
 
     isPortrait = portrait(pts1)
@@ -85,7 +84,6 @@ def findDis(pts1, pts2):
 def portrait(pts):
     w = (findDis(pts[0][0], pts[1][0]) + findDis(pts[2][0], pts[3][0]))/2
     h = (findDis(pts[0][0], pts[2][0]) + findDis(pts[1][0], pts[3][0]))/2
-    print(w,h)
     if(w < h):
         return True
     else:
